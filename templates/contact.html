@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Contact</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/me.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div align="center" style="position: relative;">
+		<img src="{% static '1.png' %}" height="100px" height="100px" class="logo">
+		<table class="table1">
+			<tr>
+				<th>
+					<b style="margin-left: 25px;">Mukul Enterprise</b>
+				</th>
+			</tr>
+		</table>
+		<hr class="hr1">
+	</div>
+
+	<div align="center">
+		<ul class="navbar">
+			<li><a href="{% url 'home' %}" style="padding-left: 0px;">Home</a></li>
+			<li>.</li>
+			{% if request.user.is_authenticated %}
+				<li><a href="{% url 'viewbill' %}">Bills</a></li>
+			{% else %}
+				<li><a href="{% url 'signin' %}">Sign In</a></li>
+			{% endif %}
+			{% if request.user.is_superuser %}
+				<li>.</li>
+				<li><a href="{% url 'create' %}">Create Bill</a></li>
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Beneficiary 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'add' %}">Add Beneficiary</a>
+				      <a href="{% url 'view' %}">View Beneficiary</a>
+				    </div>
+				  </div>
+				</li>
+
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Product 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'addp' %}">Add Product</a>
+				      <a href="{% url 'viewp' %}">View Product</a>
+				    </div>
+				  </div>
+				</li>
+			{% endif %}
+			<li>.</li>
+			<li><a href="{% url 'contact' %}">Contact</a></li>
+			{% if request.user.is_authenticated %}
+			<li>.</li>
+				<li><a href="{% url 'logout' %}">Log Out</a></li>
+			{% endif %}
+		</ul>
+	</div>
+
+	<div align="center">
+		<table class="form" cellspacing="5px" style="width: 50%">
+			<tr>
+				<th width="50%" style="border: none;"><i class="icon"><i class="fa fa-whatsapp" aria-hidden="true"></i></i>&nbsp;Ankit Jain</th>
+				<th style="text-align: center; border: none;">+91-9599569148</th>
+			</tr>
+			<tr>
+				<th style="border: none;"><i class="icon"><i class="fa fa-whatsapp" aria-hidden="true"></i></i>&nbsp;Bansi Jain</th>
+				<th style="text-align: center; border: none;">+91-9810268506</th>
+			</tr>
+
+			<tr>
+				<th colspan="2" style="border-top: 6px outset #F3B562; border-left: none; border-right: none; border-bottom: none;"><i class="icon"><i class="fa fa-map-marker" aria-hidden="true"></i></i>&nbsp;3945, G FLOOR GALI AHIRAAN, PAHARI DHIRAJ, DELHI - 110006</th>
+			</tr>
+
+			<tr>
+				<th colspan="2" style="border-top: 6px outset #F3B562; border-left: none; border-right: none; border-bottom: none;"><i class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></i>&nbsp;mukulenterprise02@gmail.com</th>
+			</tr>
+			<tr>
+				<th colspan="2" style="border-top: 6px outset #F3B562; text-align: center; border-left: none; border-right: none; border-bottom: none;">
+					<i class="icon"><i class="fa fa-address-card-o" aria-hidden="true"></i></i> 
+					<a href="{% static '2.jpg' %}" download="download" style="text-decoration: none;">Download Visiting Card&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+				</th>
+			</tr>
+			<tr>
+				<th colspan="2" style="border-top: 6px outset #F3B562; text-align: center; border-left: none; border-right: none; border-bottom: none;">
+					For Your Own website Contact: <i style="color: #5C4B51">Mukul Jain(mukuljain8810@gmail.com)</i>
+				</th>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

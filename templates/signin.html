@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Sign IN</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/me.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script type="text/javascript">
+		function myFunction() 
+		{
+		  	var x = document.getElementById("password");
+		  	if (x.type == "password") 
+		  	{
+		    	x.type = "text";
+		  	} 
+		  	else 
+		  	{
+		    	x.type = "password";
+		  	}
+		}
+	</script>
+</head>
+<body>
+	<div align="center" style="position: relative;">
+		<img src="{% static '1.png' %}" height="100px" height="100px" class="logo">
+		<table class="table1">
+			<tr>
+				<th>
+					<b style="margin-left: 25px;">Mukul Enterprise</b>
+				</th>
+			</tr>
+		</table>
+		<hr class="hr1">
+	</div>
+
+	<div align="center">
+		<ul class="navbar">
+			<li><a href="{% url 'home' %}" style="padding-left: 0px;">Home</a></li>
+			<li>.</li>
+			<li><a href="{% url 'signin' %}">Sign In</a></li>
+			<li>.</li>
+			<li><a href="{% url 'contact' %}">Contact</a></li>
+		</ul>
+	</div>
+
+	<div align="center">
+		<form method="POST" action="">
+			{% csrf_token %}
+			<table class="form" style="border: none;">
+				<tr>
+					<th style="border: none;">Company Name</th>
+					<td style="border: none;"><input placeholder="Company Name" type="text" name="companyname"></td>
+				</tr>
+				<tr>
+					<th style="border: none;">GST Number</th>
+					<td style="border: none;"><input placeholder="GST Number" type="Password" name="gstno" id="password"></td>
+				</tr>
+				<tr style="text-align: right;">
+					<td colspan="2" style="border: none;"><input type="checkbox" onclick="myFunction()" id="show">&nbsp<label for="show">Show Password</label></td>
+				</tr>
+				<tr>
+					<th colspan="2" style="border: none;">
+						<input type="submit" value="Submit">
+					</th>
+				</tr>
+				<tr>
+					<th colspan="2" style="border: none;">
+						{% for message in messages %}
+			      			*{{message}}*
+			      		{% endfor %}
+					</th>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

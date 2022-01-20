@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mukul Enterprise</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/me.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div align="center" style="position: relative;">
+		<img src="{% static '1.png' %}" height="100px" height="100px" class="logo">
+		<table class="table1">
+			<tr>
+				<th>
+					<b style="margin-left: 25px;">Mukul Enterprise</b>
+				</th>
+			</tr>
+		</table>
+		<hr class="hr1">
+	</div>
+
+	<div align="center">
+		<ul class="navbar">
+			<li><a href="{% url 'home' %}" style="padding-left: 0px;">Home</a></li>
+			<li>.</li>
+			{% if request.user.is_authenticated %}
+				<li><a href="{% url 'viewbill' %}">Bills</a></li>
+			{% else %}
+				<li><a href="{% url 'signin' %}">Sign In</a></li>
+			{% endif %}
+			{% if request.user.is_superuser %}
+				<li>.</li>
+				<li><a href="{% url 'create' %}">Create Bill</a></li>
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Beneficiary 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'add' %}">Add Beneficiary</a>
+				      <a href="{% url 'view' %}">View Beneficiary</a>
+				    </div>
+				  </div>
+				</li>
+
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Product 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'addp' %}">Add Product</a>
+				      <a href="{% url 'viewp' %}">View Product</a>
+				    </div>
+				  </div>
+				</li>
+			{% endif %}
+			<li>.</li>
+			<li><a href="{% url 'contact' %}">Contact</a></li>
+			{% if request.user.is_authenticated %}
+			<li>.</li>
+				<li><a href="{% url 'logout' %}">Log Out</a></li>
+			{% endif %}
+		</ul>
+	</div>
+
+	<div align="center" style="margin-top: 5%; margin-bottom: 2%;">
+		<img src="{% static '1.png' %}" height="100%" width="90%">
+	</div>
+	<br>
+	<div align="center" style="color: #F3B562; font-weight: bold;">
+		<hr class="hr1">
+		M:- 9810268506 (Bansi Jain) | 9599569148 (Ankit Jain)
+		<br>
+		For Your own Website Contact - Mukul Jain(mukuljain8810@gmail.com)
+	</div>
+	<br>
+</body>
+</html>

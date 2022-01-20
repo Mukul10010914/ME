@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Select Beneficiary</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/me.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	<div align="center" style="position: relative;">
+		<img src="{% static '1.png' %}" height="100px" height="100px" class="logo">
+		<table class="table1">
+			<tr>
+				<th>
+					<b style="margin-left: 25px;">Mukul Enterprise</b>
+				</th>
+			</tr>
+		</table>
+		<hr class="hr1">
+	</div>
+
+	<div align="center">
+		<ul class="navbar">
+			<li><a href="{% url 'home' %}" style="padding-left: 0px;">Home</a></li>
+			<li>.</li>
+			{% if request.user.is_authenticated %}
+				<li><a href="{% url 'viewbill' %}">Bills</a></li>
+			{% else %}
+				<li><a href="{% url 'signin' %}">Sign In</a></li>
+			{% endif %}
+			{% if request.user.is_superuser %}
+				<li>.</li>
+				<li><a href="{% url 'create' %}">Create Bill</a></li>
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Beneficiary 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'add' %}">Add Beneficiary</a>
+				      <a href="{% url 'view' %}">View Beneficiary</a>
+				    </div>
+				  </div>
+				</li>
+
+				<li>.</li>
+
+				<li>
+					<div class="dropdown">
+				    <a class="dropbtn">Product 
+				      <i class="fa fa-caret-down"></i>
+				    </a>
+				    <div class="dropdown-content">
+				      <a href="{% url 'addp' %}">Add Product</a>
+				      <a href="{% url 'viewp' %}">View Product</a>
+				    </div>
+				  </div>
+				</li>
+			{% endif %}
+			<li>.</li>
+			<li><a href="{% url 'contact' %}">Contact</a></li>
+			{% if request.user.is_authenticated %}
+			<li>.</li>
+				<li><a href="{% url 'logout' %}">Log Out</a></li>
+			{% endif %}
+		</ul>
+	</div>
+
+	<div style="margin-top: 5%">
+		<div align="center" class="create">
+			<form method="POST" action="{% url 'create_step2' %}">
+				{% csrf_token %}
+				<div style="width: 90%; margin: 2%">
+					<fieldset style="border: 2px solid #5C4B51;">
+						<legend style="font-weight: bold; color: #5C4B51;">Select Recipient:</legend>
+						<table class="from" width="90%">
+							<tr>
+								<td colspan="4">
+									<input list="recipient" name="recipient" placeholder="Selct Recipient">
+									<datalist id="recipient">
+										{% for r in r %}
+											<option value="{{r.name}} - {{r.gstin}}"></option>
+										{% endfor %}
+									</datalist>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</div>
+
+				<div style="width: 90%; margin: 2%">
+					<fieldset style="border: 2px solid #5C4B51;">
+						<legend style="font-weight: bold; color: #5C4B51;">Select Transport:</legend>
+						<table class="from" width="90%">
+							<tr>
+								<td colspan="4">
+									<input list="transport" name="transport" placeholder="Selct Transport">
+									<datalist id="transport">
+										{% for t in t %}
+											<option value="{{t.name}} - {{t.gstin}}"></option>
+										{% endfor %}
+									</datalist>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</div>
+
+				<div style="width: 90%; margin: 2%">
+					<fieldset style="border: 2px solid #5C4B51;">
+						<legend style="font-weight: bold; color: #5C4B51;">Additional Information:</legend>
+						<table class="from" width="90%" cellspacing="10px">
+							<tr>
+								<th style="width: 10%; color: #5C4B51;">Discount:</th>
+								<td>
+									<input name="discount" placeholder="Enter Discount Amount" value="0">
+								</td>
+								<th style="width: 10%; color: #5C4B51;">Freight Charges:</th>
+								<td>
+									<input name="freight" placeholder="Enter Freight Charges" value="0">
+								</td>
+							</tr>
+							<tr>
+								<th style="width: 10%; color: #5C4B51;">Payment Method:</th>
+								<td colspan="3">
+									<input list="payment" name="payment" placeholder="Selct Payment Method">
+									<datalist id="payment">
+										<option value="CASH"></option>
+										<option value="NEFT"></option>
+									</datalist>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+				</div>
+
+				<div style="width: 90%; margin: 2%">
+					<table class="from">
+						<tr>
+							<th>
+								<input type="submit" value="Submit" name="submit" style="color: #5C4B51; background: #F2EBBF;">
+							</th>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

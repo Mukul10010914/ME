@@ -1,0 +1,275 @@
+{% load static %}
+{% load mathfilters %}
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{{b.bill_number}} {{b.recipient.name}}</title>
+	<style type="text/css">
+        .th1
+        {
+            font-family: "New Century Schoolbook", Times, serif;
+            font-size: 28px;
+            padding-top: 12px;
+        }
+
+        .td1
+        {
+            font-family: "New Century Schoolbook", Times, serif;
+            text-align: center;
+            font-size: 12px;
+            padding-top: 5px;
+        }
+
+        .t
+        {
+            border: 2px solid black;
+        }
+
+        .t2
+        {
+            border: 1.5px solid black;
+            font-family: "New Century Schoolbook", Times, serif;
+            border-collapse: collapse;
+        }
+
+        .t3
+        {
+            border: 1.5px solid black;
+            font-family: "New Century Schoolbook", Times, serif;
+            border-collapse: collapse;
+        }
+
+        .dis
+        {
+            font-family: "New Century Schoolbook", Times, serif;
+        }
+    </style>
+</head>
+<body>
+	<table width="100%">
+        <tr>
+            <td width="15%">
+                <img src="{{f.img.path}}" height="350px">
+            </td>
+            <td>
+                <table width="100%">
+                    <tr class="t">
+                        <th class="th1" colspan="2" style="text-align: center;">
+                            MUKUL ENTERPRISE
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="td1" width="80%">
+                            A-40, AMAR COLONY, DR.KASHYAP WALI GALI,
+                        </td>
+                        <td class="td1" rowspan="2" style="font-size: 13px;" width="20%">
+                            M: - +91-9599569148; +91-9810268506
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td1" width="81%">
+                            NANGLOI, NEW DELHI-110041
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="td1">
+                            GSTIN: 07BQDPJ1461N1ZP
+                        </th>
+                        <td class="td1" style="border: 3px solid black; font-weight: bold;">
+                            TAX INVOICE
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table width="100%" class="t2" style="font-size: 14px; padding-top: 5px; padding-left:3px; margin-top: 5px" cellpadding="0px">
+    	<tr style="border-bottom: none;">
+    		<th width="50%" style="border-top: none; border-bottom: none; text-align: left;">
+    			M/S. {{b.recipient.name}}
+    		</th>
+    		<td width="25%" style="border-bottom: 2px solid black; border-right: none; text-align: left;">
+    			<strong>Invoice No.:</strong> INVOICE {{b.bill_number}}
+    		</td>
+    		<td style="border-bottom: 2px solid black; border-right: none; text-align: left;">
+    			<strong>Date:</strong> {{b.date}}
+    		</td>
+    	</tr>
+    	<tr style="border-top: none; border-bottom: none;">
+            <td style="border-top: none; border-bottom: none;">{{b.recipient.add1}}</td>
+    		<th style="text-align: left; border-bottom: 2px solid black;">LR No.: --------------</th>
+    		<td style="border-right: none; text-align: left; border-bottom: 2px solid black;"><strong>Paid By:</strong> {{b.payment_method}}</td>
+    	</tr>
+    	<tr style="border-top: none; border-bottom: none;">
+            <td style="border-top: none; border-bottom: none;">{{b.recipient.add2}}</td>
+    		<td style="text-align: left; border-bottom: 2px solid black;" colspan="2"><strong>Dispatch Through:</strong> {{b.transport.name}}</td>
+    	</tr>
+    	<tr style="border-top: none;">
+            <td style="border-top: none; border-bottom: none;"><strong>GSTIN: {{b.recipient.gstin}}</strong></td>
+    		<td colspan="2"><strong>E-Way Bill No.: </strong> {{b.ewaybill_number}}</td>
+    	</tr>
+    </table>
+
+    <table cellpadding="0px" class="t3" width="100%" style="font-size: 14px; padding-top: 5px; padding-left:3px; empty-cells: hide; border: 2px solid black" width="100%">
+    	<tr class="t" style="line-height: 25px; height: 25px; font-size: 140%">
+    		<th width="10%">S.No.</th>
+    		<th width="30%">Description</th>
+    		<th width="10%">Boxes</th>
+    		<th>HSN</th>
+    		<th>Mtr</th>
+    		<th>Qty(PCS)</th>
+    		<th>Rate</th>
+    		<th>Amount</th>
+    	</tr>
+
+        <tbody style=" font-family:'Arial';">
+        {% for o in o %}
+            <tr style="height: 21px; line-height: 16px; border: none; text-align: center;">
+                <th style="font-size: 13px;" rowspan="3" valign="top" class="dis">{{ forloop.counter }}</th>
+                <td style="text-align: left; border-left: 2px solid black; font-size: 13px " rowspan="3" valign="top">
+                    <b class="dis">{{o.item.name}}</b>
+                    <br>
+                    {{o.item.description}}
+                    <br>
+                    <b>( {{ o.qty|div:o.box|floatformat }} X {{o.box}} )</b>
+                </td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.box}}</td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.item.hsn}}</td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.mtr}}</td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.qty}}</td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.rate_without_gst}}</td>
+                <td style="border-left: 2px solid black; font-size: 14px;">{{o.amount|floatformat:2|intcomma}}</td>
+            </tr>
+            <tr style="height: 21px; line-height: 16px; border: none;">
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+            </tr>
+            <tr style="height: 21px; line-height: 16px; border: none;">
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+                <td style="border-left: 2px solid black;"> </td>
+            </tr>
+        {% endfor %}
+
+        <tr style="border: none; height: {{h}}px; line-height: {{h}}px">
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+        </tr>
+        <tr style="line-height: 15px; border: none;">
+            <td style="border-left: 2px solid black;"> </td>
+            <td style="border-left: 2px solid black; font-size: 12px; text-align: center;">
+                {% if b.transport.name == "SELF OWN" %}
+                    <strong>(Delivery By {{b.transport.gstin}})</strong>
+                {% endif %}
+            </td>
+            <td style="border-left: 2px solid black;"> </td>
+            <td style="border-left: 2px solid black;"> </td>
+            <td style="border-left: 2px solid black;"> </td>
+            <td style="border-left: 2px solid black;"> </td>
+            <td style="border-left: 2px solid black;">    </td>
+            <td style="border-left: 2px solid black;">    </td>
+        </tr>
+        <tr class="t" style="line-height: 25px; height: 25px; font-size: 140%; f">
+            <td> </td>
+            <th>TOTAL</th>
+            <th style="ont-weight: bold; font-style: italic;">{{b.total_box}}</th>
+            <td> </td>
+            <td> </td>
+            <th>{{b.total_quantity}}</th>
+            <td> </td>
+            <th>{{tamount}}</th>
+        </tr>
+    </table>
+    <table class="t3" style="font-size: 14px; padding-top: 5px; padding-left:3px; empty-cells: hide;" width="100%">
+        <tr style="border-bottom: none;">
+            <th width="50%" style="text-align: left; font-size: 18px; border-right: 2px">MUKUL ENTERPRISE</th>
+            <th width="30%" style="border: none; text-align: left;">
+                {% if b.freight_charges != "0" %}
+                    Freight Charges ({{ b.freight_charges|div:b.total_box|floatformat }} X {{b.total_box}})
+                {% endif %}
+            </th>
+            <td width="10%" style="border: none;"> </td>
+            <td width="10%" style="border: none; text-align: center;" valign="top">
+                {% if b.freight_charges != "0" %}
+                    {{b.freight_charges|div:1.05|floatformat:2}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr style="border-bottom: none; border-top: none;">
+            <td style="border-top: none; border-right: 2px; border-bottom: none;">
+                <strong>KOTAK MAHINDRA BANK</strong> A/C NO.:1815003576
+            </td>
+            {{h1|safe}}
+            {{h2|safe}}
+        </tr>
+        <tr style="border-bottom: none; border-top: none;">
+            <td style="border-top: none; border-right: 2px; border-bottom: none;">
+                <strong>IFSC:-</strong> KKBK0004601
+            </td>
+        </tr>
+        <tr style="border-bottom: none; border-top: none;">
+            <td style="border-top: none; border-right: 2px; border-bottom: none;">
+                <strong>BRANCH:-</strong> PEERAGHARI, NEW DELHI
+            </td>
+            <th colspan="2" style="border: none; text-align: left;">
+                {% if b.discount != "0" %}
+                    Discount
+                {% endif %}
+            </th>
+            <td style="border: none; text-align: center;">
+                {% if b.discount != "0" %}
+                    {{b.discount|floatformat:2}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th style="text-align: left;">{{ta|title}}</th>
+            <th width="30%" style="border-right: none; text-align: left;">Net Amount</th>
+            <th colspan="2" style="text-align: right; margin-right: 10px; border-left: none;">Rs.{{total}}</th>
+        </tr>
+    </table>
+    <table class="t3" style="font-size: 14px; padding-top: 5px; padding-left:3px; empty-cells: hide; border:none;" width="100%">
+        <tr style="border:none;">
+            <td width="70%">
+                <strong>Terms & Condition:</strong>
+                <br>
+                <p style="font-size: 10px; margin-top: none; font-family: Arial">
+                1) No complaint regarding the quality and weight of Crimped-Texturised-Dyed-Twisted etc.
+No complaint will be entertained after seven days of receipt of goods. Our responsibility
+regarding the quality of yarn ceases once the goods are converted into cloth. 2) Goods are
+dispatched at your risk.3) the payment of this bill shall be made within due days falling
+which compound interest @24% p.a. shall be charged from due date of invoice. 4) Any
+dispute will be subject to NEW DELHI, DELHI’s jurisdiction.</p>
+            </td>
+            <th width="30%">
+                For MUKUL ENTERPRISE
+                <br>
+                <img src="{{f.stamp.path}}" height="120px">
+                <br>
+                Authorized Signatory
+            </th>
+        </tr>
+    </table>
+    <table width="30%" style="margin-top: 35px" class="dis" >
+        <tr>
+            <th style="border-top: 1.5px solid black; height: 35px; font-size: 15px;">Prepared By</th>
+        </tr>
+    </table>
+</body>
+</html>
