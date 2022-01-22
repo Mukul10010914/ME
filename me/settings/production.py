@@ -8,7 +8,7 @@ DEBUG = False
 dotenv_path=os.path.join(os.path.dirname(os.path.dirname(__file__)),'.env')
 load_dotenv(dotenv_path)
 
-ALLOWED_HOSTS = ['13.233.145.89']
+ALLOWED_HOSTS = ['13.233.10.55']
 SECRET_KEY = "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])
 
 DATABASES = {
