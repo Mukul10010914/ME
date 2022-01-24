@@ -12,13 +12,10 @@ from num2words import num2words
 import os
 from django.template.loader import get_template
 from xhtml2pdf import pisa
-import locale
 from django.contrib import messages
 import pandas as pd
 from io import BytesIO
 import xlwt
-
-locale.setlocale(locale.LC_MONETARY, 'en_IN')
 
 
 def create(request):
